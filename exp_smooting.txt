@@ -1,0 +1,21 @@
+Exponential smoothing is a time series forecasting method that is commonly used to predict future values 
+based on the weighted average of past observations. It is generally applied to univariate time series data, 
+where the goal is to predict the next value in the series.
+
+import pandas as pd
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+
+# Example sales data
+data = {'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        'Sales': [100, 120, 110, 130, 105]}
+
+df = pd.DataFrame(data)
+
+# Fit exponential smoothing model
+model = ExponentialSmoothing(df['Sales'], trend='add', seasonal=None)
+result = model.fit()
+
+# Make predictions for the next period
+forecast = result.forecast(steps=1)
+
+print("Forecast for the next period:", forecast.values[0])
